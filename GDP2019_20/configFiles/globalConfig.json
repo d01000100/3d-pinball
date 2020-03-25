@@ -1,0 +1,15 @@
+{
+    "numberOfScenes": 1,
+    "numberOfCameras": 1,
+    "scenes":
+    [
+        {
+            "name": "scene1",
+            "jsonPath": "configScenes/scene1.json",
+            "effect": "none",
+            "cameraNumber": [0],
+            "width": 1280,
+            "height": 720
+        }
+    ]
+}

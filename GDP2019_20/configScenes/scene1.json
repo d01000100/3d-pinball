@@ -1,0 +1,13 @@
+{
+    "gameObjects":
+    [
+        {"friendlyName": "sphereRed"},
+        {"friendlyName": "aStarDestroyer"},
+        {"friendlyName": "aTank1"},
+        {"friendlyName": "sphereWhite"}
+    ],
+    "lights":
+    [
+        {"name": "daylight1"}
+    ]
+}

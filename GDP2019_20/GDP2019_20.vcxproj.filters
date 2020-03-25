@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{60f6bac0-ac95-4493-9e15-40457db95f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugRenderer">
+      <UniqueIdentifier>{bba1383a-1a1c-4ee7-9b84-b0c6b9646a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{ff392894-8907-4e3d-8033-dd497b22c6a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{2323eb35-8f0b-4d86-ac10-d17295e1f1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LightManager">
+      <UniqueIdentifier>{4d24adbe-4aca-4875-8dab-0666c5843151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LowPassFilter">
+      <UniqueIdentifier>{90db0187-9f5a-4e25-917c-0920eed7abc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JSON">
+      <UniqueIdentifier>{d4f3296f-40cf-4039-aee0-8225e6f1f00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="configFiles">
+      <UniqueIdentifier>{17f36e9e-9cac-4c13-a543-c29c46c73637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{d64bf26b-e5c3-4d25-8c2b-fa15f7dd68e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextureManager">
+      <UniqueIdentifier>{54217f7b-d8e3-444d-99b0-8a4ad1f2fe50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{fc38cbc6-e309-47e3-8bfd-610f89a2cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cFlyCamera">
+      <UniqueIdentifier>{051328e9-841f-49b8-9b32-723fa307b558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="skybox">
+      <UniqueIdentifier>{116996f1-557b-426d-aa8c-e94571db01fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cAABB">
+      <UniqueIdentifier>{b6dc76ca-4208-423c-8290-c92f4a4326ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playerController">
+      <UniqueIdentifier>{508ef16c-3212-496e-8596-e5d16befb8ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bRotatable">
+      <UniqueIdentifier>{7d4292ca-5792-46a2-a2f5-c7428a494b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="quaternion_utils">
+      <UniqueIdentifier>{6526f2c0-e57a-4e6d-ae2a-4e15f75e3f5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cFBO">
+      <UniqueIdentifier>{14fd8e8f-4de2-4fbe-a6ab-174acbd33288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cSceneManager">
+      <UniqueIdentifier>{766bf6fd-1e82-49ab-a23c-d8520b30b718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cAssimp">
+      <UniqueIdentifier>{0d425bb1-7f8e-4e82-bb35-dd6ebc7b9929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModelLoader">
+      <UniqueIdentifier>{bb007e11-7647-4a53-b622-8a0cfe224a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cAnimatedPlayer">
+      <UniqueIdentifier>{a2e6db9c-29e5-475f-aba5-3ee0c37a866e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BMPLoader">
+      <UniqueIdentifier>{155542dc-7e29-4310-9c41-38dad233ba35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathFinder">
+      <UniqueIdentifier>{7d715e86-a9b5-41d1-b1d8-bdc05b6cbcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{9f2ea348-1edd-40b8-93d0-f0ae7c68f743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\include">
+      <UniqueIdentifier>{507d8bc8-0c5a-430b-a3fe-8919b856344a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="theMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cDebugRenderer.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cDebugRenderer_BuiltInShapes.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\COpenGLError.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\CErrorLog.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsStuff.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="cPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="cPhysics_Ericson.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager\cLightHelper.cpp">
+      <Filter>LightManager</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GFLW_callbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cLowPassFilter.cpp">
+      <Filter>LowPassFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="cLight.cpp">
+      <Filter>LightManager</Filter>
+    </ClCompile>
+    <ClCompile Include="JSONLoader.cpp">
+      <Filter>JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\cParticleEmitter.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager\C24BitBMPpixel.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager\cBasicTextureManager.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager\cGLColourHelper.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager\CTextureFromBMP.cpp">
+      <Filter>TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="util\tools.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="cFlyCamera\cFlyCamera.cpp">
+      <Filter>cFlyCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="skybox\skybox.cpp">
+      <Filter>skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="cAABB\PhysicsAABBStuff.cpp">
+      <Filter>cAABB</Filter>
+    </ClCompile>
+    <ClCompile Include="playerController\playerController.cpp">
+      <Filter>playerController</Filter>
+    </ClCompile>
+    <ClCompile Include="bRotatable\bRotatable.cpp">
+      <Filter>bRotatable</Filter>
+    </ClCompile>
+    <ClCompile Include="quaternion_utils\quaternion_utils.cpp">
+      <Filter>quaternion_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="cFBO\cFBO.cpp">
+      <Filter>cFBO</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager\cScene.cpp">
+      <Filter>cSceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager\cSceneManager.cpp">
+      <Filter>cSceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="cSimpleAssimpSkinnedMeshLoader_OneMesh.cpp">
+      <Filter>cAssimp</Filter>
+    </ClCompile>
+    <ClCompile Include="cModelLoader_assimp.cpp">
+      <Filter>cAssimp</Filter>
+    </ClCompile>
+    <ClCompile Include="cModelLoader.cpp">
+      <Filter>ModelLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="cVAOManager.cpp">
+      <Filter>ModelLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="cAnimatedPlayer\cAnimatedPlayer.cpp">
+      <Filter>cAnimatedPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager\cStencilScene.cpp">
+      <Filter>cSceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="cMeshMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="zBMPLoader\BMPImage.cpp">
+      <Filter>BMPLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="zBMPLoader\BMPLoader.cpp">
+      <Filter>BMPLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="zBMPLoader\ResourceManager.cpp">
+      <Filter>BMPLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="cGraph.cpp">
+      <Filter>PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="sPathFinder.cpp">
+      <Filter>PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonState.cpp">
+      <Filter>JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="cAnimationState.cpp">
+      <Filter>cAnimatedPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_demo.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_draw.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_widgets.cpp">
+      <Filter>imgui\include</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI_utils.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="LodePNG\lodepng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\cDebugRenderer.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\iDebugRenderer.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\COpenGLError.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\CErrorLog.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="cPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsStuff.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager\cLightHelper.h">
+      <Filter>LightManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GFLW_callbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="globalStuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cLowPassFilter.h">
+      <Filter>LowPassFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="cLight.h">
+      <Filter>LightManager</Filter>
+    </ClInclude>
+    <ClInclude Include="JSONLoader.h">
+      <Filter>JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\cParticleEmitter.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager\C24BitBMPpixel.h">
+      <Filter>TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager\cBasicTextureManager.h">
+      <Filter>TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager\cGLColourHelper.h">
+      <Filter>TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager\CTextureFromBMP.h">
+      <Filter>TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="util\tools.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="cFlyCamera\cFlyCamera.h">
+      <Filter>cFlyCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox\skybox.h">
+      <Filter>skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="cAABB\cAABB.h">
+      <Filter>cAABB</Filter>
+    </ClInclude>
+    <ClInclude Include="cAABB\PhysicsAABBStuff.h">
+      <Filter>cAABB</Filter>
+    </ClInclude>
+    <ClInclude Include="playerController\playerController.h">
+      <Filter>playerController</Filter>
+    </ClInclude>
+    <ClInclude Include="bRotatable\bRotatable.hpp">
+      <Filter>bRotatable</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion_utils\quaternion_utils.hpp">
+      <Filter>quaternion_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="cFBO\cFBO.h">
+      <Filter>cFBO</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\cDebugRenderer_built_in_shaders.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager\cScene.h">
+      <Filter>cSceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager\cSceneManager.h">
+      <Filter>cSceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="cSimpleAssimpSkinnedMeshLoader_OneMesh.h">
+      <Filter>cAssimp</Filter>
+    </ClInclude>
+    <ClInclude Include="sModelDrawInfo.h">
+      <Filter>cAssimp</Filter>
+    </ClInclude>
+    <ClInclude Include="sVertex_xyz_rgba_n_uv2_bt_4Bones.h">
+      <Filter>cAssimp</Filter>
+    </ClInclude>
+    <ClInclude Include="cModelLoader.h">
+      <Filter>ModelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="cVAOManager.h">
+      <Filter>ModelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="cAnimatedPlayer\cAnimatedPlayer.h">
+      <Filter>cAnimatedPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager\cStencilScene.h">
+      <Filter>cSceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="cMeshMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zBMPLoader\BMPImage.h">
+      <Filter>BMPLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="zBMPLoader\BMPLoader.h">
+      <Filter>BMPLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="zBMPLoader\ResourceManager.h">
+      <Filter>BMPLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="cGraph.h">
+      <Filter>PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="sPathFinder.h">
+      <Filter>PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonState.h">
+      <Filter>JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="cAnimationState.h">
+      <Filter>cAnimatedPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="definitions.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imconfig.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_impl_glfw.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_impl_opengl3.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_internal.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imstb_rectpack.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imstb_textedit.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imstb_truetype.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI_utils.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="LodePNG\lodepng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\fragmentShader01.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="assets\shaders\vertexShader01.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\TODO_Feeney.notes" />
+    <None Include="configFiles\2spheres.json">
+      <Filter>configFiles</Filter>
+    </None>
+    <None Include="configFiles\bkpgameObjects.json">
+      <Filter>configFiles</Filter>
+    </None>
+    <None Include="configFiles\gameObjects.json">
+      <Filter>configFiles</Filter>
+    </None>
+    <None Include="configFiles\lights.json">
+      <Filter>configFiles</Filter>
+    </None>
+    <None Include="configFiles\meshToLoad.json">
+      <Filter>configFiles</Filter>
+    </None>
+    <None Include="include\imgui\imgui.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="configFiles\log.txt">
+      <Filter>configFiles</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
