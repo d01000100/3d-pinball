@@ -37,6 +37,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "ImGUI_utils.h"
+#include "PhysicsUtils.h"
 
 cFBO* pTheFBO = NULL;
 
@@ -326,9 +327,10 @@ int main(void)
 		//		tools::DrawObject(matModel, theWorldVector[index], shaderProgID, pTheVAOManager);
 		//	}
 		//}//for (int index...
-				
+		
 		theSceneManager->update();
 		// theSceneManager->updateStencil(window);
+		PhysicsUtils::theWorld->stepSimulation(deltaTime, 10);
 		
 		switch (cursorType)
 		{
