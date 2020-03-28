@@ -5,16 +5,16 @@
 
 namespace nConvert
 {
-    inline btVector3 toBullet(const glm::vec3& v) 
+    inline btVector3 vecToBullet(const glm::vec3& v) 
     {
-        return btVector3(v.x, v.y, v.z);
+        return { v.x, v.y, v.z };
     }
-    inline glm::vec3 fromBullet(const btVector3& v) 
+    inline glm::vec3 vecFromBullet(const btVector3& v) 
     {
         return glm::vec3(v.x(), v.y(), v.z());
     }
 
-    inline void toGLM(
+    inline void transformMat4(
         const btTransform& transformIn,
         glm::mat4& transformOut
     ) 

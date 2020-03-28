@@ -13,6 +13,7 @@
 #include "bRotatable/bRotatable.hpp"
 #include "cSimpleAssimpSkinnedMeshLoader_OneMesh.h"
 #include "cAnimationState.h"
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 enum eShapeTypes
 {
@@ -29,6 +30,7 @@ class cGameObject : public bRotatable
 public:
 	cGameObject();
 	cGameObject(cGameObject* newGO);
+	~cGameObject();
 	// Used to draw this mesh
 	std::string meshName;
 	std::string meshURL;
@@ -67,6 +69,7 @@ public:
 
 	//cSimpleAssimpSkinnedMesh* pSM;
 	cAnimationState* pAS;
+	btRigidBody* rigidBody = nullptr;
 
 public:
 	// glm::quat getQOrientation(void);

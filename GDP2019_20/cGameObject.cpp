@@ -61,6 +61,19 @@ cGameObject::cGameObject(cGameObject* newGO)
 	// The Skinned Mesh (assimp) object
 	//this->pSM = NULL;
 	this->pAS = NULL;
+	// I'm not actually sure if this will work
+	if (newGO->rigidBody)
+	{
+		rigidBody = new btRigidBody(*newGO->rigidBody);
+	}
+}
+
+cGameObject::~cGameObject()
+{
+	if (rigidBody)
+	{
+		delete rigidBody;
+	}
 }
 
 unsigned int cGameObject::getUniqueID(void)

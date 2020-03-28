@@ -1,4 +1,5 @@
 #include "tools.h"
+#include "nConvert.h"
 
 static glm::vec3 white = glm::vec3(1, 1, 1);
 static glm::vec3 red = glm::vec3(1, 0, 0);
@@ -12,14 +13,23 @@ auto HACK_FrameTime = 0.f;
 glm::mat4 tools::calculateWorldMatrix(cGameObject* pCurrentObject)
 {
 	glm::mat4 matWorld = glm::mat4(1.0f);
-	// ******* TRANSLATION TRANSFORM *********
-	glm::mat4 matTrans
-		= glm::translate(glm::mat4(1.0f),
-			glm::vec3(pCurrentObject->positionXYZ.x,
-				pCurrentObject->positionXYZ.y,
-				pCurrentObject->positionXYZ.z));
-	matWorld = matWorld * matTrans;
-	// ******* TRANSLATION TRANSFORM *********
+	if (pCurrentObject->rigidBody)
+	{
+		// If it's a body with physics, we draw the physics position
+		nConvert::transformMat4(pCurrentObject->rigidBody->getWorldTransform(), matWorld);
+	}
+	else
+	{
+
+		// ******* TRANSLATION TRANSFORM *********
+		glm::mat4 matTrans
+			= glm::translate(glm::mat4(1.0f),
+				glm::vec3(pCurrentObject->positionXYZ.x,
+					pCurrentObject->positionXYZ.y,
+					pCurrentObject->positionXYZ.z));
+		matWorld = matWorld * matTrans;
+		// ******* TRANSLATION TRANSFORM *********
+	}
 
 	// ******* ROTATION TRANSFORM *********
 	glm::mat4 matRotation = glm::mat4(pCurrentObject->getQOrientation());

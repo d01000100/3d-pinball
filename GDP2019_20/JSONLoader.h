@@ -12,6 +12,7 @@
 #include <vector>
 #include <thread>
 #include <map>
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 class JSONLoader
 {
@@ -21,7 +22,8 @@ public:
 	static std::string gameobjects_json;
 	static std::string bkp_light_json;
 	static std::string bkp_gameobjects_json;
-	
+
+	static btRigidBody* LoadRigidBody(const nlohmann::json& physicsDef);
 	static bool JSONLoadMeshes(
 		std::map<std::string, cMesh*>* g_map_Mesh,
 		cModelLoader* pTheModelLoader);

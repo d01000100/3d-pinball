@@ -1,6 +1,7 @@
 #include "JSONLoader.h"
 #include "cMeshMap.h"
 #include "JsonState.h"
+#include "PhysicsUtils.h"
 
 using json = nlohmann::json;
 
@@ -9,6 +10,122 @@ std::string JSONLoader::light_json = "./configFiles/lights.json";
 std::string JSONLoader::gameobjects_json = "./configFiles/gameObjects.json";
 std::string JSONLoader::bkp_light_json = "./configFiles/bkplights.json";
 std::string JSONLoader::bkp_gameobjects_json = "./configFiles/bkpgameObjects.json";
+
+bool jsonContains(const json& jObj, const std::string& key)
+{
+	return jObj.find(key) != jObj.end();
+}
+
+btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
+{
+	if (!jsonContains(physicsDef, "shape"))
+	{
+		std::cout << "Physics defs without a shape!!" << std::endl;
+		return nullptr;
+	}
+	if (!jsonContains(physicsDef, "positionXYZ"))
+	{
+		std::cout << "Physics defs without a starting position!!" << std::endl;
+		return nullptr;
+	}
+
+	auto shapeString = physicsDef["shape"];
+	btCollisionShape* collisionShape = nullptr;
+
+	if (shapeString == "sphere" || shapeString == "Sphere" || shapeString == "SPHERE")
+	{
+		if (!jsonContains(physicsDef, "radius"))
+		{
+			std::cout << "Sphere defs without a radius!!" << std::endl;
+			return nullptr;
+		}
+
+		collisionShape = new btSphereShape(physicsDef["radius"].get<float>());
+	}
+	else if (shapeString == "box" || shapeString == "Box" || shapeString == "BOX")
+	{
+		if (!jsonContains(physicsDef, "height"))
+		{
+			std::cout << "Box defs without a height!!" << std::endl;
+			return nullptr;
+		}
+		if (!jsonContains(physicsDef, "width"))
+		{
+			std::cout << "Box defs without a width!!" << std::endl;
+			return nullptr;
+		}
+		if (!jsonContains(physicsDef, "depth"))
+		{
+			std::cout << "Box defs without a depth!!" << std::endl;
+			return nullptr;
+		}
+
+		collisionShape = new btBoxShape(btVector3(
+			physicsDef["width"].get<float>() / 2,
+			physicsDef["height"].get<float>() / 2,
+			physicsDef["depth"].get<float>() / 2
+		));
+	}
+	else if (shapeString == "cylinder" || shapeString == "Cylinder" || shapeString == "CYLINDER")
+	{
+		if (!jsonContains(physicsDef, "depth"))
+		{
+			std::cout << "Cylinder defs without a depth!!" << std::endl;
+			return nullptr;
+		}
+		if (!jsonContains(physicsDef, "radius"))
+		{
+			std::cout << "Cylinder defs without a radius!!" << std::endl;
+			return nullptr;
+		}
+
+		collisionShape = new btCylinderShapeZ(btVector3(
+			physicsDef["radius"].get<float>(),
+			physicsDef["radius"].get<float>(),
+			physicsDef["depth"].get<float>() / 2
+		));
+	}
+	else if (shapeString == "mesh" || shapeString == "Mesh" || shapeString == "MESH")
+	{
+		std::cout << "TODO MESH" << std::endl;
+		return nullptr;
+	}
+	else
+	{
+		std::cout << "Unrecognized collision shape: " << shapeString << std::endl;
+		return nullptr;
+	}
+
+	float mass = 0.0f;
+	if (jsonContains(physicsDef, "mass"))
+	{
+		mass = physicsDef["mass"].get<float>();
+	}
+	btTransform startTransform;
+	startTransform.setIdentity();
+	startTransform.setOrigin(btVector3(
+		physicsDef["positionXYZ"][0].get<float>(),
+		physicsDef["positionXYZ"][1].get<float>(),
+		physicsDef["positionXYZ"][2].get<float>()
+	));
+	btDefaultMotionState* motionState = new btDefaultMotionState(startTransform);
+
+	bool isDynamic = (mass != 0.f);
+
+	btVector3 localInertia(0, 0, 0);
+	if (isDynamic)
+		collisionShape->calculateLocalInertia(mass, localInertia);
+
+	btRigidBody::btRigidBodyConstructionInfo bodyDef(
+		mass,
+		motionState,
+		collisionShape,
+		localInertia
+	);
+	bodyDef.m_restitution = 0.8f; // how much energy it losses when it collides
+
+	return new btRigidBody(bodyDef);
+}
 
 bool JSONLoader::JSONLoadMeshes(std::map<std::string, cMesh*>* g_map_Mesh, cModelLoader* pTheModelLoader)
 {
@@ -303,6 +420,19 @@ bool JSONLoader::JSONLoadGameObjects(std::map<std::string, cGameObject*>* g_map_
 		tempGameObject->isWireframe = isWireframe;
 		tempGameObject->debugColour = debugColour;
 		tempGameObject->isVisible = isVisible;
+
+		// Physics
+		if (jsonContains(jsonArray[index], "Physics"))
+		{
+			auto physicsDef = jsonArray[index]["Physics"];
+			physicsDef["positionXYZ"] = jsonArray[index]["positionXYZ"];
+			tempGameObject->rigidBody = LoadRigidBody(physicsDef);
+			if (tempGameObject->rigidBody)
+			{
+				PhysicsUtils::theWorld->addRigidBody(tempGameObject->rigidBody);
+			}
+		}
+		
 		g_map_GameObjects->insert({ friendlyName.c_str(),tempGameObject });
 	}
 	//std::cout << j;
@@ -603,4 +733,3 @@ bool JSONLoader::loadSkinnedMesh(nlohmann::json jsonArray, int index)
 	}
 	return true;
 }
-
