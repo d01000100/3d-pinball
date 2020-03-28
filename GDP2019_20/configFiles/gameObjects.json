@@ -63,10 +63,7 @@
     "velocity": [0.0, 0.0, 0.0],
     "Physics": {
       "shape": "sphere",
-      "radius": 15.0,
-      "depth": 1.0,
-      "height": 2.0,
-      "width": 3.0,
+      "radius": 1.0,
       "mass": 1.0
     }
   },
@@ -79,8 +76,8 @@
     "inverseMass": 0.0,
     "isVisible": true,
     "isWireframe": false,
-    "meshName": "sphereMesh",
-    "meshURL": "assets/models/Sphere_Radius_1_XYZ_n_uv.ply",
+    "meshName": "cubeMesh",
+    "meshURL": "assets/models/cube1_xyx_n_uv.ply",
     "objectColourRGBA": [0.0, 0.0, 0.0, 1.0],
     "physicsShapeType": 5,
     "positionXYZ": [80, 0, 0],
@@ -92,10 +89,10 @@
     "velocity": [0.0, 0.0, 0.0],
     "Physics": {
       "shape": "box",
-      "radius": 15.0,
-      "depth": 10.0,
-      "height": 15.0,
-      "width": 300.0
+      "radius": 1,
+      "depth": 1.0,
+      "height": 1.0,
+      "width": 1.0
     }
   },
   {

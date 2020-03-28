@@ -31,7 +31,7 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 
 	auto shapeString = physicsDef["shape"];
 	btCollisionShape* collisionShape = nullptr;
-
+	auto scale = physicsDef["scale"].get<float>();
 	if (shapeString == "sphere" || shapeString == "Sphere" || shapeString == "SPHERE")
 	{
 		if (!jsonContains(physicsDef, "radius"))
@@ -40,7 +40,7 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 			return nullptr;
 		}
 
-		collisionShape = new btSphereShape(physicsDef["radius"].get<float>());
+		collisionShape = new btSphereShape(physicsDef["radius"].get<float>() * scale);
 	}
 	else if (shapeString == "box" || shapeString == "Box" || shapeString == "BOX")
 	{
@@ -61,9 +61,9 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		}
 
 		collisionShape = new btBoxShape(btVector3(
-			physicsDef["width"].get<float>() / 2,
-			physicsDef["height"].get<float>() / 2,
-			physicsDef["depth"].get<float>() / 2
+			physicsDef["width"].get<float>() * scale / 2,
+			physicsDef["height"].get<float>() * scale / 2,
+			physicsDef["depth"].get<float>() * scale / 2
 		));
 	}
 	else if (shapeString == "cylinder" || shapeString == "Cylinder" || shapeString == "CYLINDER")
@@ -80,9 +80,9 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		}
 
 		collisionShape = new btCylinderShapeZ(btVector3(
-			physicsDef["radius"].get<float>(),
-			physicsDef["radius"].get<float>(),
-			physicsDef["depth"].get<float>() / 2
+			physicsDef["radius"].get<float>() * scale,
+			physicsDef["radius"].get<float>() * scale,
+			physicsDef["depth"].get<float>() * scale/ 2
 		));
 	}
 	else if (shapeString == "mesh" || shapeString == "Mesh" || shapeString == "MESH")
@@ -426,6 +426,7 @@ bool JSONLoader::JSONLoadGameObjects(std::map<std::string, cGameObject*>* g_map_
 		{
 			auto physicsDef = jsonArray[index]["Physics"];
 			physicsDef["positionXYZ"] = jsonArray[index]["positionXYZ"];
+			physicsDef["scale"] = jsonArray[index]["scale"];
 			tempGameObject->rigidBody = LoadRigidBody(physicsDef);
 			if (tempGameObject->rigidBody)
 			{
