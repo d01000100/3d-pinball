@@ -38,6 +38,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "ImGUI_utils.h"
 #include "PhysicsUtils.h"
+#include "PhysicsDebug.h"
 
 cFBO* pTheFBO = NULL;
 
@@ -234,6 +235,8 @@ int main(void)
 	pDebugRenderer->initialize();
 
 	ImGUI_utils::init(window);
+
+	PhysicsUtils::theWorld->setDebugDrawer(new PhysicsDebug());
 	
 	while (!glfwWindowShouldClose(window))
 	{
@@ -345,31 +348,23 @@ int main(void)
 		//pPhysic->TestForCollisions(::g_map_GameObjects);
 		//thePathFinder->update(float(averageDeltaTime));
 
-		glm::mat4 p, v; float ratio;
-		glfwGetFramebufferSize(window, &width, &height);
-		ratio = width / float(height);
-		p = glm::perspective(0.6f,ratio,0.1f,15000.0f);
-		v = glm::mat4(1.0f);
-		v = glm::lookAt( ::g_pFlyCamera->eye,::g_pFlyCamera->getAtInWorldSpace(),::g_pFlyCamera->getUpVector() );
-		pDebugRenderer->RenderDebugObjects(v, p, 0.01f);
+		if (::debugger)
+		{
+			PhysicsUtils::theWorld->debugDrawWorld();
+
+			glm::mat4 p, v; float ratio;
+			glfwGetFramebufferSize(window, &width, &height);
+			ratio = width / float(height);
+			p = glm::perspective(0.6f, ratio, 0.1f, 15000.0f);
+			v = glm::mat4(1.0f);
+			v = glm::lookAt(::g_pFlyCamera->eye, ::g_pFlyCamera->getAtInWorldSpace(), ::g_pFlyCamera->getUpVector());
+			pDebugRenderer->RenderDebugObjects(v, p, 0.01f);
+		}
 
 		::theSceneManager->lastPass(window);		
 
 		glfwPollEvents();
-
-		// Example of how to display a JSON
-		// As I have it now, it has to be displayed every frame
-		// (it disappears if you don't diplay it)
-		// We can change this if we need to.
-		nlohmann::json jData;
-		jData["title"] = "Selected game Object";
-		auto gameObj = selectedGameObject->second;
-		jData["name"] = gameObj->friendlyName;
-		jData["position"] = glm::to_string(gameObj->positionXYZ);
-		jData["rotation"] = glm::to_string(gameObj->getEulerAngle());
-		jData["direction"] = glm::to_string(gameObj->getCurrentAT());
-		jData["scale"] = gameObj->scale;
-		ImGUI_utils::displayJSON(jData);
+		
 		ImGUI_utils::render();
 		
 		glfwSwapBuffers(window);

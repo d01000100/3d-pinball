@@ -719,6 +719,9 @@
     <ClCompile Include="PhysicsUtils.cpp">
       <Filter>bullet</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsDebug.cpp">
+      <Filter>bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cMesh.h">
@@ -1598,6 +1601,9 @@
       <Filter>bullet</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsUtils.h">
+      <Filter>bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsDebug.h">
       <Filter>bullet</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "PhysicsUtils.h"
+#include "PhysicsDebug.h"
 
 auto mCollisions = new btDefaultCollisionConfiguration();
 ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)

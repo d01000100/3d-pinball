@@ -122,7 +122,7 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		collisionShape,
 		localInertia
 	);
-	bodyDef.m_restitution = 0.8f; // how much energy it losses when it collides
+	bodyDef.m_restitution = 1.0f; // how much energy it losses when it collides
 
 	return new btRigidBody(bodyDef);
 }

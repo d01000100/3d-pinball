@@ -328,6 +328,7 @@
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="JsonState.cpp" />
     <ClCompile Include="LodePNG\lodepng.cpp" />
+    <ClCompile Include="PhysicsDebug.cpp" />
     <ClCompile Include="PhysicsUtils.cpp" />
     <ClCompile Include="SceneManager\cStencilScene.cpp" />
     <ClCompile Include="cVAOManager.cpp" />
@@ -634,6 +635,7 @@
     <ClInclude Include="LightManager\cLightHelper.h" />
     <ClInclude Include="LodePNG\lodepng.h" />
     <ClInclude Include="Particle\cParticleEmitter.h" />
+    <ClInclude Include="PhysicsDebug.h" />
     <ClInclude Include="PhysicsStuff.h" />
     <ClInclude Include="PhysicsUtils.h" />
     <ClInclude Include="playerController\playerController.h" />
