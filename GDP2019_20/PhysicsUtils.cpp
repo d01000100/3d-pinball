@@ -1,5 +1,6 @@
 #include "PhysicsUtils.h"
-#include "PhysicsDebug.h"
+#include "globalStuff.h"
+#include "util/tools.h"
 
 auto mCollisions = new btDefaultCollisionConfiguration();
 ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
@@ -14,3 +15,127 @@ btDiscreteDynamicsWorld* PhysicsUtils::theWorld = new btDiscreteDynamicsWorld(
 	mConstraints,
 	mCollisions
 );
+
+cGameObject* PhysicsUtils::leftPaddleObj = nullptr,
+*PhysicsUtils::rightPaddleObj = nullptr,
+*PhysicsUtils::launcherObj = nullptr,
+*PhysicsUtils::ballObj = nullptr;
+
+void PhysicsUtils::init()
+{
+	//theWorld->setGravity({ 0,0,0 });
+	// Add hinge constraint to left paddle
+	// Assuming that "leftPaddle" is a box with little height
+	if (tools::pFindObjectByFriendlyNameMap("leftPaddle"))
+	{
+		leftPaddleObj = ::g_map_GameObjects["leftPaddle"];
+		if (leftPaddleObj->rigidBody)
+		{
+			auto body = leftPaddleObj->rigidBody;
+			auto shape = body->getCollisionShape();
+			btVector3 aabbMin, aabbMax;
+			shape->getAabb(body->getWorldTransform(), aabbMin, aabbMax);
+			auto pos = body->getWorldTransform().getOrigin();
+			btHingeConstraint* hinge = new btHingeConstraint(
+				*body, btVector3(aabbMin.getX(), 0, 0) - pos, btVector3(0, 0, 1), true
+			);
+			hinge->setLimit(glm::radians(-30.f), glm::radians(30.f));
+			theWorld->addConstraint(hinge);
+		}
+	}
+
+	// Add hinge constraint to right paddle
+	if (tools::pFindObjectByFriendlyNameMap("rightPaddle"))
+	{
+		rightPaddleObj = ::g_map_GameObjects["rightPaddle"];
+		if (rightPaddleObj->rigidBody)
+		{
+			auto body = rightPaddleObj->rigidBody;
+			auto shape = body->getCollisionShape();
+			btVector3 aabbMin, aabbMax;
+			shape->getAabb(body->getWorldTransform(), aabbMin, aabbMax);
+			auto pos = body->getWorldTransform().getOrigin();
+			btHingeConstraint* hinge = new btHingeConstraint(
+				*body, btVector3(aabbMax.getX(), 0, 0) - pos, btVector3(0, 0, 1), true
+			);
+			hinge->setLimit(glm::radians(-30.f), glm::radians(30.f));
+			theWorld->addConstraint(hinge);
+		}
+	}
+}
+
+void PhysicsUtils::inputListen(GLFWwindow* window)
+{
+	float paddleVel = 10.0f;
+	if (leftPaddleObj)
+	{
+		if (leftPaddleObj->rigidBody)
+		{
+			auto left_key_status = glfwGetKey(window, GLFW_KEY_LEFT);
+			auto body = leftPaddleObj->rigidBody;
+			body->activate(true);
+			float x, y, z;
+			body->getWorldTransform().getRotation().getEulerZYX(z,y,x);
+			z = glm::degrees(z);
+			// Because of our setup, negative degrees are counter clockwise
+			// and positive degrees are clockwise
+			if (left_key_status == GLFW_PRESS)
+			{
+				if (z < 28)
+				{
+					body->setAngularVelocity(btVector3(0, 0, paddleVel));
+				}
+				else
+				{
+					body->setAngularVelocity(btVector3(0, 0, 0));
+				}
+			}
+			if (left_key_status == GLFW_RELEASE)
+			{
+				if (z > -28.f)
+				{
+					body->setAngularVelocity(btVector3(0, 0, -paddleVel));
+				}
+				else
+				{
+					body->setAngularVelocity(btVector3(0, 0, 0));
+				}
+			}
+		}
+	}
+
+	if (rightPaddleObj)
+	{
+		if (rightPaddleObj->rigidBody)
+		{
+			auto right_key_status = glfwGetKey(window, GLFW_KEY_RIGHT);
+			auto body = rightPaddleObj->rigidBody;
+			body->activate(true);
+			float x, y, z;
+			body->getWorldTransform().getRotation().getEulerZYX(z, y, x);
+			z = glm::degrees(z);
+			// Because of our setup, negative degrees are counter clockwise
+			// and positive degrees are clockwise
+			if (right_key_status == GLFW_PRESS)
+			{
+				if (z > -28)
+				{
+					body->setAngularVelocity(btVector3(0, 0, -paddleVel));
+				} else
+				{
+					body->setAngularVelocity(btVector3(0, 0, 0));
+				}
+			}
+			if (right_key_status == GLFW_RELEASE)
+			{
+				if (z < 28.f)
+				{
+					body->setAngularVelocity(btVector3(0, 0, paddleVel));
+				} else
+				{
+					body->setAngularVelocity(btVector3(0, 0, 0));
+				}
+			}
+		}
+	}
+}

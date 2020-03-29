@@ -117,7 +117,6 @@ void ImGUI_utils::renderJSON(nlohmann::json data)
 		{
 			ImGui::Text(std::to_string(key_value.value().get<float>()).c_str());
 		}
-		
 	}
 
 	ImGui::End();

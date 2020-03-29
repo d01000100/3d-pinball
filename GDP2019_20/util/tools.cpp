@@ -29,12 +29,12 @@ glm::mat4 tools::calculateWorldMatrix(cGameObject* pCurrentObject)
 					pCurrentObject->positionXYZ.z));
 		matWorld = matWorld * matTrans;
 		// ******* TRANSLATION TRANSFORM *********
-	}
 
-	// ******* ROTATION TRANSFORM *********
-	glm::mat4 matRotation = glm::mat4(pCurrentObject->getQOrientation());
-	matWorld = matWorld * matRotation;
-	// ******* ROTATION TRANSFORM *********
+		// ******* ROTATION TRANSFORM *********
+		glm::mat4 matRotation = glm::mat4(pCurrentObject->getQOrientation());
+		matWorld = matWorld * matRotation;
+		// ******* ROTATION TRANSFORM *********
+	}
 
 	// ******* SCALE TRANSFORM *********
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f),

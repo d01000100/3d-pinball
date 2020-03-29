@@ -53,7 +53,7 @@ glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 sexyLightSpotDirection = glm::vec3(0.0f, -1.0f, 0.0f);
 
 bool everythingWireFrame = false;
-bool debugger = false;
+bool debugger = true;
 std::string console;
 GLuint shaderProgID;
 cVAOManager* pTheVAOManager = new cVAOManager();
@@ -224,18 +224,11 @@ int main(void)
 	//thePathFinder->setTheGameObject(::g_map_GameObjects.at("sphereRed"));
 	//thePathFinder->setTheResource(::g_map_GameObjects.at("sphereWhite"));
 
-	JsonState* theJsonState = JsonState::getTheJsonState();
-	std::ofstream outFile("./configFiles/tempLog.json");
-	//outFile << theJsonState->JSONObjects;
-	auto sphereRed = ::g_map_GameObjects.at("sphereRed");
-	sphereRed->positionXYZ += glm::vec3(10,10,20);
-	theJsonState->mergeObject(sphereRed);
-	outFile << theJsonState->JSONObjects;
-	
 	pDebugRenderer->initialize();
 
 	ImGUI_utils::init(window);
 
+	PhysicsUtils::init();
 	PhysicsUtils::theWorld->setDebugDrawer(new PhysicsDebug());
 	
 	while (!glfwWindowShouldClose(window))
@@ -330,6 +323,8 @@ int main(void)
 		//		tools::DrawObject(matModel, theWorldVector[index], shaderProgID, pTheVAOManager);
 		//	}
 		//}//for (int index...
+
+		PhysicsUtils::inputListen(window);
 		
 		theSceneManager->update();
 		// theSceneManager->updateStencil(window);
