@@ -18,6 +18,8 @@
 #include "cLuaBrain/cLuaBrain.h"
 
 #include "cAnimatedPlayer/cAnimatedPlayer.h"
+#include "PhysicsDebug.h"
+#include "PhysicsUtils.h"
 
 bool isOnlyShiftKeyDown(int mods);
 bool isOnlyCtrlKeyDown(int mods);
@@ -131,6 +133,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	const float DEGREESOFROTATION = 3.0f;
 	cGameObject* theSelectedGO = selectedGameObject->second;
 	cLight* theSelectedL = (selectedLight->second);
+
+	auto theSceneManager = cSceneManager::getTheSceneManager();
 	
 	auto theAnimatedPlayer = cAnimatedPlayer::getAnimatedPlayer();
 	bool debugControls = false;
@@ -439,9 +443,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 			if (key == GLFW_KEY_R && action == GLFW_PRESS)
 			{
+				PhysicsUtils::newPhysicsWorld();
 				::g_map_GameObjects.clear();
 				JSONLoader::JSONLoadGameObjects(&::g_map_GameObjects);
 				::selectedGameObject = ::g_map_GameObjects.begin();
+				theSceneManager->scenesVector[0]->sceneGameObjects.clear();
+				theSceneManager->loadAllObjectsToScene1();
+				PhysicsUtils::init();
+				
+				PhysicsUtils::theWorld->setDebugDrawer(new PhysicsDebug());
+				
 				
 				//::cmdDictionary.clear();
 				//::masterCommandGroup = NULL;

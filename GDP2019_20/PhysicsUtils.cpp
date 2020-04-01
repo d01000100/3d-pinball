@@ -1,25 +1,29 @@
-#include "PhysicsUtils.h"
 #include "globalStuff.h"
 #include "util/tools.h"
-
-auto mCollisions = new btDefaultCollisionConfiguration();
-///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-auto mCollisionDispatcher = new btCollisionDispatcher(mCollisions);
-///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-auto mOverlappingPairs = new btDbvtBroadphase();
-///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-auto mConstraints = new btSequentialImpulseConstraintSolver;
-btDiscreteDynamicsWorld* PhysicsUtils::theWorld = new btDiscreteDynamicsWorld(
-	mCollisionDispatcher,
-	mOverlappingPairs,
-	mConstraints,
-	mCollisions
-);
+#include "PhysicsUtils.h"
 
 cGameObject* PhysicsUtils::leftPaddleObj = nullptr,
 *PhysicsUtils::rightPaddleObj = nullptr,
 *PhysicsUtils::launcherObj = nullptr,
 *PhysicsUtils::ballObj = nullptr;
+btDiscreteDynamicsWorld *PhysicsUtils::theWorld = nullptr;
+
+void PhysicsUtils::newPhysicsWorld()
+{
+	auto mCollisions = new btDefaultCollisionConfiguration();
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	auto mCollisionDispatcher = new btCollisionDispatcher(mCollisions);
+	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
+	auto mOverlappingPairs = new btDbvtBroadphase();
+	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	auto mConstraints = new btSequentialImpulseConstraintSolver;
+	theWorld = new btDiscreteDynamicsWorld(
+		mCollisionDispatcher,
+		mOverlappingPairs,
+		mConstraints,
+		mCollisions
+	);
+}
 
 void PhysicsUtils::init()
 {
@@ -60,6 +64,45 @@ void PhysicsUtils::init()
 			);
 			hinge->setLimit(glm::radians(-30.f), glm::radians(30.f));
 			theWorld->addConstraint(hinge);
+		}
+	}
+
+	//Add slider constraint to the launcher
+	if (tools::pFindObjectByFriendlyNameMap("boxy"))
+	{
+		launcherObj = ::g_map_GameObjects["boxy"];
+		if (launcherObj->rigidBody)
+		{
+			btTransform frame;
+	        frame.setIdentity();
+	        frame.setRotation( btQuaternion( btVector3(0,0,1),-SIMD_PI/2) );
+			btSliderConstraint* slider = new btSliderConstraint(
+				*(launcherObj->rigidBody),frame,false);
+			slider->setLowerLinLimit(-15.f);
+			slider->setUpperLinLimit(20.f);
+
+			theWorld->addConstraint(slider);
+			slider->setDbgDrawSize(btScalar(35.f));
+		}
+	}
+
+	//Add slider constraint to the launcher
+	if (tools::pFindObjectByFriendlyNameMap("sphere"))
+	{
+		ballObj = ::g_map_GameObjects["sphere"];
+		if (ballObj->rigidBody)
+		{
+			btVector3 lowerSliderLimit = btVector3(-100, -100, 0);
+			btVector3 hiSliderLimit = btVector3(100, 100, 0);
+			btTransform frame;
+	        frame.setIdentity();
+	        //frame.setRotation( btQuaternion( btVector3(1,0,0),0) );
+			btGeneric6DofConstraint* ball6dof = new btGeneric6DofConstraint(
+				*(ballObj->rigidBody),frame,true);
+			ball6dof->setLinearLowerLimit(lowerSliderLimit);
+			ball6dof->setLinearUpperLimit(hiSliderLimit);
+			
+			theWorld->addConstraint(ball6dof);
 		}
 	}
 }
@@ -135,6 +178,25 @@ void PhysicsUtils::inputListen(GLFWwindow* window)
 				{
 					body->setAngularVelocity(btVector3(0, 0, 0));
 				}
+			}
+		}
+	}
+
+	if (launcherObj)
+	{
+		if (launcherObj->rigidBody)
+		{
+			auto m_key_status = glfwGetKey(window, GLFW_KEY_M);
+			auto n_key_status = glfwGetKey(window, GLFW_KEY_N);
+			auto body = launcherObj->rigidBody;
+			body->activate(true);
+			if (m_key_status == GLFW_PRESS)
+			{
+				body->setLinearVelocity(btVector3(0,10,0));
+			}
+			if (n_key_status == GLFW_PRESS)
+			{
+				body->setLinearVelocity(btVector3(10,0,0));
 			}
 		}
 	}

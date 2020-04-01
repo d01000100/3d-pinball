@@ -176,13 +176,14 @@ int main(void)
 	*/
 	
 	//JSON Loader for objects
+	PhysicsUtils::newPhysicsWorld();
 	::pTextureManager->SetBasePath("assets/textures");
-	JSONLoader::JSONLoadGameObjects(&::g_map_GameObjects);
 	JSONLoader::loadDefaultMesh("assets/models/Sphere_Radius_1_XYZ_n_uv.ply");
-	//JSONLoader::JSONLoadMeshesSimple();
-	JSONLoader::LoadMeshes_Thread();
+	JSONLoader::JSONLoadMeshesSimple();
+	JSONLoader::JSONLoadGameObjects(&::g_map_GameObjects);
+	//JSONLoader::LoadMeshes_Thread();
 	JSONLoader::JSONLoadTextures(&::g_map_GameObjects, ::pTextureManager);
-	//JSONLoader::loadMeshToGPU(pTheVAOManager, &::g_map_Mesh, &::g_map_GameObjects, shaderProgID);
+	JSONLoader::loadMeshToGPU(pTheVAOManager, &::g_map_GameObjects, shaderProgID);
 	selectedGameObject = ::g_map_GameObjects.begin();
 
 	//	//	mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
@@ -233,7 +234,7 @@ int main(void)
 	
 	while (!glfwWindowShouldClose(window))
 	{
-		JSONLoader::loadMeshToGPU(pTheVAOManager, &::g_map_GameObjects, shaderProgID);
+		//JSONLoader::loadMeshToGPU(pTheVAOManager, &::g_map_GameObjects, shaderProgID);
 		
 		// Get the initial time
 		double currentTime = glfwGetTime();

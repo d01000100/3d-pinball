@@ -1,4 +1,5 @@
 # 3d-pinball
+
 Physics Pinball
 
 ## JSON Format
@@ -25,3 +26,9 @@ Physics Pinball
         // same as the game object
     }
 }
+```
+
+## TODO
+
+- Spring Launcher (Maybe scale one axis independent)
+- Sphere 6 DoF
