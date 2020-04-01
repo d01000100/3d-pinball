@@ -86,7 +86,7 @@ void PhysicsUtils::init()
 		}
 	}
 
-	//Add slider constraint to the launcher
+	//Add 6dof constraint to the ball
 	if (tools::pFindObjectByFriendlyNameMap("sphere"))
 	{
 		ballObj = ::g_map_GameObjects["sphere"];

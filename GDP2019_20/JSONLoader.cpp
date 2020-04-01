@@ -87,8 +87,23 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 	}
 	else if (shapeString == "mesh" || shapeString == "Mesh" || shapeString == "MESH")
 	{
-		std::cout << "TODO MESH" << std::endl;
-		return nullptr;
+		auto meshCollider = new btConvexHullShape();
+
+		cMeshMap* theMeshMap = cMeshMap::getTheMeshMap();
+		if (!theMeshMap->findMesh(physicsDef["meshName"]))
+		{
+			std::cout << "Mesh " << physicsDef["meshName"] << " not loaded for convex hull shape" << std::endl;
+			return nullptr;
+		}
+
+		auto mesh = theMeshMap->getMesh(physicsDef["meshName"]);
+
+		for (auto vertex : mesh->vecVertices)
+		{
+			meshCollider->addPoint(physicsDef["scale"] * btVector3(vertex.x, vertex.y, vertex.z));
+		}
+		
+		collisionShape = meshCollider;
 	}
 	else
 	{
@@ -108,7 +123,6 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		physicsDef["positionXYZ"][1].get<float>(),
 		physicsDef["positionXYZ"][2].get<float>()
 	));
-	// todo: check if rotation is possible.
 	startTransform.setRotation(btQuaternion(
 		glm::radians(float(physicsDef["rotationXYZ"][1])),
 		glm::radians(float(physicsDef["rotationXYZ"][0])),
