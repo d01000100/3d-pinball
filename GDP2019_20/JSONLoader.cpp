@@ -108,6 +108,14 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		physicsDef["positionXYZ"][1].get<float>(),
 		physicsDef["positionXYZ"][2].get<float>()
 	));
+	// todo: check if rotation is possible.
+	startTransform.setRotation(btQuaternion(
+		glm::radians(float(physicsDef["rotationXYZ"][1])),
+		glm::radians(float(physicsDef["rotationXYZ"][0])),
+		glm::radians(float(physicsDef["rotationXYZ"][2]))
+	));
+	
+	
 	btDefaultMotionState* motionState = new btDefaultMotionState(startTransform);
 
 	bool isDynamic = (mass != 0.f);
@@ -426,7 +434,9 @@ bool JSONLoader::JSONLoadGameObjects(std::map<std::string, cGameObject*>* g_map_
 		{
 			auto physicsDef = jsonArray[index]["Physics"];
 			physicsDef["positionXYZ"] = jsonArray[index]["positionXYZ"];
+			physicsDef["rotationXYZ"] = jsonArray[index]["rotationXYZ"];
 			physicsDef["scale"] = jsonArray[index]["scale"];
+			physicsDef["meshName"] = jsonArray[index]["meshName"];
 			tempGameObject->rigidBody = LoadRigidBody(physicsDef);
 			if (tempGameObject->rigidBody)
 			{

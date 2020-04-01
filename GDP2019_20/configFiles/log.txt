@@ -20,7 +20,7 @@ specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 velocity: vec3(0.000000, 0.000000, 0.000000)
 accel: vec3(0.000000, 0.000000, 0.000000)
 debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
-friendlyName: sphereGreen
+friendlyName: sphere
 meshName: sphereMesh
 meshURL: assets/models/Sphere_Radius_1_XYZ_n_uv.ply
 positionXYZ: vec3(10.000000, 100.000000, 0.000000)
@@ -47,6 +47,28 @@ meshName: box_paddle
 meshURL: assets/models/box_paddle.ply
 positionXYZ: vec3(30.000000, 0.000000, 0.000000)
 rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
+objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
+diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+velocity: vec3(0.000000, 0.000000, 0.000000)
+accel: vec3(0.000000, 0.000000, 0.000000)
+debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+friendlyName: boxy
+meshName: box
+meshURL: assets/models/cube1_xyx_n_uv.ply
+positionXYZ: vec3(120.000000, 0.000000, 0.000000)
+rotationXYZ: vec3(0.000000, 0.000000, 0.000000)
+objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
+diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+velocity: vec3(0.000000, 0.000000, 0.000000)
+accel: vec3(0.000000, 0.000000, 0.000000)
+debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+friendlyName: boxy2
+meshName: box
+meshURL: assets/models/cube1_xyx_n_uv.ply
+positionXYZ: vec3(40.000000, 20.000000, 0.000000)
+rotationXYZ: vec3(0.000000, 45.000000, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
