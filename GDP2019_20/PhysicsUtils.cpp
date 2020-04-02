@@ -26,6 +26,8 @@ void PhysicsUtils::newPhysicsWorld()
 		mConstraints,
 		mCollisions
 	);
+
+	theWorld->setGravity({ 0,-100,0 });
 }
 
 void PhysicsUtils::init()
@@ -44,7 +46,7 @@ void PhysicsUtils::init()
 			shape->getAabb(body->getWorldTransform(), aabbMin, aabbMax);
 			auto pos = body->getWorldTransform().getOrigin();
 			btHingeConstraint* hinge = new btHingeConstraint(
-				*body, btVector3(aabbMin.getX(), 0, 0) - pos, btVector3(0, 0, 1), true
+				*body, btVector3(aabbMin.getX(), aabbMin.getY(), 0) - pos, btVector3(0, 0, 1), true
 			);
 			hinge->setLimit(glm::radians(-30.f), glm::radians(30.f));
 			theWorld->addConstraint(hinge);
@@ -63,7 +65,7 @@ void PhysicsUtils::init()
 			shape->getAabb(body->getWorldTransform(), aabbMin, aabbMax);
 			auto pos = body->getWorldTransform().getOrigin();
 			btHingeConstraint* hinge = new btHingeConstraint(
-				*body, btVector3(aabbMax.getX(), 0, 0) - pos, btVector3(0, 0, 1), true
+				*body, btVector3(aabbMax.getX(), aabbMin.getY(), 0) - pos, btVector3(0, 0, 1), true
 			);
 			hinge->setLimit(glm::radians(-30.f), glm::radians(30.f));
 			theWorld->addConstraint(hinge);
@@ -83,7 +85,8 @@ void PhysicsUtils::init()
 				*(launcherObj->rigidBody),frame,false);
 			slider->setLowerLinLimit(-15.f);
 			slider->setUpperLinLimit(20.f);
-
+			slider->setLowerAngLimit(0);
+			slider->setUpperAngLimit(0);
 			theWorld->addConstraint(slider);
 			slider->setDbgDrawSize(btScalar(35.f));
 		}
@@ -95,16 +98,19 @@ void PhysicsUtils::init()
 		ballObj = ::g_map_GameObjects["sphere"];
 		if (ballObj->rigidBody)
 		{
-			btVector3 lowerSliderLimit = btVector3(-100, -100, 0);
-			btVector3 hiSliderLimit = btVector3(100, 100, 0);
+			auto ballBody = ballObj->rigidBody;
+			auto ballPos = ballBody->getWorldTransform().getOrigin();
+			
+			btVector3 lowerSliderLimit = btVector3(-52.5, -25, 0);
+			btVector3 hiSliderLimit = btVector3(97, 160, 0);
 			btTransform frame;
 	        frame.setIdentity();
 	        //frame.setRotation( btQuaternion( btVector3(1,0,0),0) );
 			btGeneric6DofConstraint* ball6dof = new btGeneric6DofConstraint(
 				*(ballObj->rigidBody),frame,true);
-			ball6dof->setLinearLowerLimit(lowerSliderLimit);
-			ball6dof->setLinearUpperLimit(hiSliderLimit);
-			
+			ball6dof->setLinearLowerLimit(lowerSliderLimit - ballPos);
+			ball6dof->setLinearUpperLimit(hiSliderLimit - ballPos);
+			ball6dof->setDbgDrawSize(1.0f);
 			theWorld->addConstraint(ball6dof);
 		}
 	}
@@ -113,7 +119,7 @@ void PhysicsUtils::init()
 
 void PhysicsUtils::inputListen(GLFWwindow* window)
 {
-	float paddleVel = 10.0f;
+	float paddleVel = 12.0f;
 	if (leftPaddleObj)
 	{
 		if (leftPaddleObj->rigidBody)
@@ -196,7 +202,7 @@ void PhysicsUtils::inputListen(GLFWwindow* window)
 			body->activate(true);
 			if (m_key_status == GLFW_PRESS)
 			{
-				body->setLinearVelocity(btVector3(0,10,0));
+				body->setLinearVelocity(btVector3(0,300,0));
 			}
 			if (n_key_status == GLFW_PRESS)
 			{

@@ -125,8 +125,8 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		physicsDef["positionXYZ"][2].get<float>()
 	));
 	startTransform.setRotation(btQuaternion(
-		glm::radians(float(physicsDef["rotationXYZ"][1])),
 		glm::radians(float(physicsDef["rotationXYZ"][0])),
+		glm::radians(float(physicsDef["rotationXYZ"][1])),
 		glm::radians(float(physicsDef["rotationXYZ"][2]))
 	));
 	
