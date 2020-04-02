@@ -2,6 +2,7 @@
 #include "cMeshMap.h"
 #include "JsonState.h"
 #include "PhysicsUtils.h"
+#include "Pinball.h"
 
 using json = nlohmann::json;
 
@@ -459,11 +460,19 @@ bool JSONLoader::JSONLoadGameObjects(std::map<std::string, cGameObject*>* g_map_
 			physicsDef["rotationXYZ"] = jsonArray[index]["rotationXYZ"];
 			physicsDef["scale"] = jsonArray[index]["scale"];
 			physicsDef["meshName"] = jsonArray[index]["meshName"];
+			short group = jsonArray[index]["friendlyName"] == "sphere" ? 1 : 2;
+			short mask = jsonArray[index]["friendlyName"] == "sphere" ? 2 : 1;
 			tempGameObject->rigidBody = LoadRigidBody(physicsDef);
 			if (tempGameObject->rigidBody)
 			{
-				PhysicsUtils::theWorld->addRigidBody(tempGameObject->rigidBody);
+				tempGameObject->rigidBody->setUserPointer(tempGameObject);
+				PhysicsUtils::theWorld->addRigidBody(tempGameObject->rigidBody, group, mask);
 			}
+		}
+
+		if (jsonContains(jsonArray[index], "givesPoints"))
+		{
+			Pinball::pointGivers.insert(tempGameObject);
 		}
 		
 		g_map_GameObjects->insert({ friendlyName.c_str(),tempGameObject });

@@ -325,11 +325,12 @@ int main(void)
 		//	}
 		//}//for (int index...
 
-		PhysicsUtils::inputListen(window);
 		
 		theSceneManager->update();
 		// theSceneManager->updateStencil(window);
 		PhysicsUtils::theWorld->stepSimulation(deltaTime, 10);
+		PhysicsUtils::inputListen(window);
+		PhysicsUtils::collisionListen();
 		
 		switch (cursorType)
 		{

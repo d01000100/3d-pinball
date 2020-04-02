@@ -1,12 +1,15 @@
 #include "globalStuff.h"
 #include "util/tools.h"
 #include "PhysicsUtils.h"
+#include "Pinball.h"
 
 cGameObject* PhysicsUtils::leftPaddleObj = nullptr,
-*PhysicsUtils::rightPaddleObj = nullptr,
-*PhysicsUtils::launcherObj = nullptr,
-*PhysicsUtils::ballObj = nullptr;
+           *PhysicsUtils::rightPaddleObj = nullptr,
+           *PhysicsUtils::launcherObj = nullptr,
+           *PhysicsUtils::ballObj = nullptr;
 btDiscreteDynamicsWorld *PhysicsUtils::theWorld = nullptr;
+
+btPairCachingGhostObject* PhysicsUtils::bottomGhost = nullptr;
 
 void PhysicsUtils::newPhysicsWorld()
 {
@@ -105,6 +108,7 @@ void PhysicsUtils::init()
 			theWorld->addConstraint(ball6dof);
 		}
 	}
+
 }
 
 void PhysicsUtils::inputListen(GLFWwindow* window)
@@ -197,6 +201,29 @@ void PhysicsUtils::inputListen(GLFWwindow* window)
 			if (n_key_status == GLFW_PRESS)
 			{
 				body->setLinearVelocity(btVector3(10,0,0));
+			}
+		}
+	}
+}
+
+void PhysicsUtils::collisionListen()
+{
+	auto dispatcher = theWorld->getCollisionWorld()->getDispatcher();
+	int nCollisions = dispatcher->getNumManifolds();
+	for (int i = 0; i < nCollisions; i++)
+	{
+		auto manifold = dispatcher->getManifoldByIndexInternal(i);
+		if (manifold->getNumContacts())
+		{
+			auto bodyA = manifold->getBody0();
+			auto bodyB = manifold->getBody1();
+			auto objA = (cGameObject*)bodyA->getUserPointer();
+			auto objB = (cGameObject*)bodyB->getUserPointer();
+
+			if (Pinball::pointGivers.count(objA) ||
+				Pinball::pointGivers.count(objB))
+			{
+				Pinball::points += 5;
 			}
 		}
 	}

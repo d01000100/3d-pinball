@@ -4,6 +4,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include <glm/vec3.hpp>
 #include <iostream>
+#include "Pinball.h"
 
 /*
  * Esto esta aqui mientras porque no puedo incluir tools y
@@ -124,32 +125,16 @@ void ImGUI_utils::renderJSON(nlohmann::json data)
 
 void ImGUI_utils::renderMenu()
 {
-	int flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-	ImGui::Begin("Actions", nullptr, flags);
-	int screenWidth, screenHeight;
-	int width = 200;
-	int height = 150;
-	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
-	ImGui::SetWindowPos(ImVec2(screenWidth - width, screenHeight - height));
-	ImGui::SetWindowSize(ImVec2(width,  height));
-	// Si necesitamos hacer el menú más dinámico, podemos agregar variables estáticas
-	// para aparecer/desaparecer los botones
-	ImGui::SetNextItemWidth(ImGui::GetWindowWidth() * 0.9);
-	bool movedThisFrame = ImGui::Button("Move");
-	ImGui::SetNextItemWidth(ImGui::GetWindowWidth() * 0.9);
-	bool attackedThisFrame = ImGui::Button("Attack");
+	int flags = ImGuiWindowFlags_NoTitleBar;
+	ImGui::Begin("Game Ingo", nullptr, flags);
 
-	// Podemos cambiar esto a que los botones actualicen variables estaticas que
-	// sean leidas por otras cosas o que directamente esta función llame a
-	// funciones para manejar que los botones sean picados
-	if (movedThisFrame)
-	{
-		std::cout << "Move action was pressed" << std::endl;
-	}
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "Points:");
+	ImGui::SameLine(0, 20);
+	ImGui::Text(std::to_string(Pinball::points).c_str());
 
-	if (attackedThisFrame)
-	{
-		std::cout << "Attack!!" << std::endl;
-	}
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "Lives left:");
+	ImGui::SameLine(0, 20);
+	ImGui::Text(std::to_string(Pinball::lives).c_str());
+	
 	ImGui::End();
 }

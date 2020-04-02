@@ -330,6 +330,7 @@
     <ClCompile Include="LodePNG\lodepng.cpp" />
     <ClCompile Include="PhysicsDebug.cpp" />
     <ClCompile Include="PhysicsUtils.cpp" />
+    <ClCompile Include="Pinball.cpp" />
     <ClCompile Include="SceneManager\cStencilScene.cpp" />
     <ClCompile Include="cVAOManager.cpp" />
     <ClCompile Include="DebugRenderer\cDebugRenderer.cpp" />
@@ -638,6 +639,7 @@
     <ClInclude Include="PhysicsDebug.h" />
     <ClInclude Include="PhysicsStuff.h" />
     <ClInclude Include="PhysicsUtils.h" />
+    <ClInclude Include="Pinball.h" />
     <ClInclude Include="playerController\playerController.h" />
     <ClInclude Include="quaternion_utils\quaternion_utils.hpp" />
     <ClInclude Include="SceneManager\cScene.h" />

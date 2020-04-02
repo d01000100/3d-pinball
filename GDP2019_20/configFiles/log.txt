@@ -75,10 +75,32 @@ specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 velocity: vec3(0.000000, 0.000000, 0.000000)
 accel: vec3(0.000000, 0.000000, 0.000000)
 debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
-friendlyName: diamond
-meshName: diamond
-meshURL: assets/models/low_poly_ship.ply
-positionXYZ: vec3(0.000000, 10.000000, 0.000000)
+friendlyName: cylinder1
+meshName: cylinder
+meshURL: assets/models/cylinder.fbx
+positionXYZ: vec3(20.000000, 40.000000, -2.000000)
+rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
+objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
+diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+velocity: vec3(0.000000, 0.000000, 0.000000)
+accel: vec3(0.000000, 0.000000, 0.000000)
+debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+friendlyName: cylinder2
+meshName: cylinder
+meshURL: assets/models/cylinder.fbx
+positionXYZ: vec3(-16.000000, 30.000000, 4.000000)
+rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
+objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
+diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+velocity: vec3(0.000000, 0.000000, 0.000000)
+accel: vec3(0.000000, 0.000000, 0.000000)
+debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
+friendlyName: cylinder3
+meshName: cylinder
+meshURL: assets/models/cylinder.fbx
+positionXYZ: vec3(12.000000, 8.000000, 0.000000)
 rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)

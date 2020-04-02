@@ -22,9 +22,12 @@ Physics Pinball
         // for box and cylinder (z oriented cylinder)
         "depth": 2.0, // full depth (Z axis)
         // the mesh shape will use the mesh data (maybe)
-        // The rigid body starting position will be the 
-        // same as the game object
-    }
+        // The rigid body starting position and rotation
+        // will be the same as the game object
+    },
+    ...
+    // if colliding with this object gives the player points
+    "givesPoints": true
 }
 ```
 

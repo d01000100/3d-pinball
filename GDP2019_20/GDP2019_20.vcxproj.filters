@@ -722,6 +722,9 @@
     <ClCompile Include="PhysicsDebug.cpp">
       <Filter>bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Pinball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cMesh.h">
@@ -1605,6 +1608,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsDebug.h">
       <Filter>bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Pinball.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
