@@ -37,5 +37,5 @@ Physics Pinball
 - Ghost object to lose a life
 - Game over state
 - Diamond to win a life
-- Don't gain points for the same object
+- * Don't gain points for the same object
 - * Sphere 6 DoF

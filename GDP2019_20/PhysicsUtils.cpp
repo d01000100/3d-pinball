@@ -5,7 +5,8 @@
 
 cGameObject* PhysicsUtils::leftPaddleObj = nullptr,
            *PhysicsUtils::rightPaddleObj = nullptr,
-           *PhysicsUtils::launcherObj = nullptr,
+			* PhysicsUtils::launcherObj = nullptr,
+			*PhysicsUtils::lastHitObj = nullptr,
            *PhysicsUtils::ballObj = nullptr;
 btDiscreteDynamicsWorld *PhysicsUtils::theWorld = nullptr;
 
@@ -226,9 +227,12 @@ void PhysicsUtils::collisionListen()
 			auto objA = (cGameObject*)bodyA->getUserPointer();
 			auto objB = (cGameObject*)bodyB->getUserPointer();
 
-			if (Pinball::pointGivers.count(objA) ||
+			if ((Pinball::pointGivers.count(objA) ||
 				Pinball::pointGivers.count(objB))
+				&&
+				(objA != lastHitObj && objB != lastHitObj))
 			{
+				lastHitObj = objB;
 				Pinball::points += 5;
 			}
 		}

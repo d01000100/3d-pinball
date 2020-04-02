@@ -10,7 +10,7 @@ struct PhysicsUtils
 {
 	static btDiscreteDynamicsWorld *theWorld;
 	static cGameObject* leftPaddleObj, *rightPaddleObj,
-		*launcherObj, *ballObj;
+		*launcherObj, *ballObj, *lastHitObj;
 	static btPairCachingGhostObject *bottomGhost;
 	static void newPhysicsWorld();
 	static void init();
