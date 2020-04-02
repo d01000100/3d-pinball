@@ -145,6 +145,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	
 		if ( !isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods) )
 		{
+			if (key == GLFW_KEY_P && action == GLFW_PRESS)
+			{
+				tools::renderWithPhysics = !tools::renderWithPhysics;
+			}
 			if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
 			{
 				switch (cursorType)

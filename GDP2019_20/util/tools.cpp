@@ -8,12 +8,13 @@ static glm::vec3 blue = glm::vec3(0, 0, 1);
 static glm::vec3 cyan = glm::vec3(0, 1, 1);
 static glm::vec3 yellow = glm::vec3(1, 1, 0);
 auto HACK_FrameTime = 0.f;
+bool tools::renderWithPhysics = true;
 
 
 glm::mat4 tools::calculateWorldMatrix(cGameObject* pCurrentObject)
 {
 	glm::mat4 matWorld = glm::mat4(1.0f);
-	if (pCurrentObject->rigidBody)
+	if (pCurrentObject->rigidBody && renderWithPhysics)
 	{
 		// If it's a body with physics, we draw the physics position
 		nConvert::transformMat4(pCurrentObject->rigidBody->getWorldTransform(), matWorld);

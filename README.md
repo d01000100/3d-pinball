@@ -36,6 +36,6 @@ Physics Pinball
 - Spring Launcher (Maybe scale one axis independent)
 - Ghost object to lose a life
 - Game over state
-- Diamond to win a life
+- * Diamond to win a life
 - * Don't gain points for the same object
 - * Sphere 6 DoF

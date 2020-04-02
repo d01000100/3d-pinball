@@ -227,14 +227,20 @@ void PhysicsUtils::collisionListen()
 			auto objA = (cGameObject*)bodyA->getUserPointer();
 			auto objB = (cGameObject*)bodyB->getUserPointer();
 
-			if ((Pinball::pointGivers.count(objA) ||
-				Pinball::pointGivers.count(objB))
-				&&
-				(objA != lastHitObj && objB != lastHitObj))
+			if (objA != lastHitObj && objB != lastHitObj)
 			{
 				lastHitObj = objB;
-				Pinball::points += 5;
-			}
+				if ((Pinball::pointGivers.count(objA) ||
+					Pinball::pointGivers.count(objB)))
+				{
+					Pinball::points += 5;
+				}
+				// If we hit the diamond, we get a super duper life
+				if (objB->friendlyName == "diamond")
+				{
+					Pinball::lives++;
+				}
+			}			
 		}
 	}
 }

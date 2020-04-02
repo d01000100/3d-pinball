@@ -61,4 +61,5 @@ public:
 	template <typename T, typename K>
 	static bool mapContains(std::map<K, T> mapa, K llave)
 	{ return mapa.find(llave) != mapa.end(); }
+	static bool renderWithPhysics;
 };
