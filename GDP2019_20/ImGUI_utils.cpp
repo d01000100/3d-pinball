@@ -64,6 +64,13 @@ void ImGUI_utils::render()
 
 	renderMenu();
 
+	if (Pinball::lives <= 0)
+	{
+		ImGui::Begin("Endgame", nullptr, ImGuiWindowFlags_NoTitleBar);
+		ImGui::TextColored(ImVec4(1, 0, 0, 1), "GAME OVER");
+		ImGui::End();
+	}
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -119,7 +126,6 @@ void ImGUI_utils::renderJSON(nlohmann::json data)
 			ImGui::Text(std::to_string(key_value.value().get<float>()).c_str());
 		}
 	}
-
 	ImGui::End();
 }
 

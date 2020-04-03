@@ -2,11 +2,12 @@
 #include "util/tools.h"
 #include "PhysicsUtils.h"
 #include "Pinball.h"
+#include "JsonState.h"
 
 cGameObject* PhysicsUtils::leftPaddleObj = nullptr,
            *PhysicsUtils::rightPaddleObj = nullptr,
-			* PhysicsUtils::launcherObj = nullptr,
-			*PhysicsUtils::lastHitObj = nullptr,
+           * PhysicsUtils::launcherObj = nullptr,
+           *PhysicsUtils::lastHitObj = nullptr,
            *PhysicsUtils::ballObj = nullptr;
 btDiscreteDynamicsWorld *PhysicsUtils::theWorld = nullptr;
 
@@ -19,6 +20,9 @@ void PhysicsUtils::newPhysicsWorld()
 	auto mCollisionDispatcher = new btCollisionDispatcher(mCollisions);
 	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
 	auto mOverlappingPairs = new btDbvtBroadphase();
+	mOverlappingPairs->getOverlappingPairCache()->setInternalGhostPairCallback(
+		new btGhostPairCallback() 
+	);
 	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
 	auto mConstraints = new btSequentialImpulseConstraintSolver;
 	theWorld = new btDiscreteDynamicsWorld(
@@ -116,6 +120,14 @@ void PhysicsUtils::init()
 		}
 	}
 
+	// Add Ghost Object to determine if the player has lost
+	bottomGhost = new btPairCachingGhostObject();
+	btTransform ghostTransform;
+	ghostTransform.setOrigin({ 0, -30, 0 });
+	bottomGhost->setWorldTransform(ghostTransform);
+	bottomGhost->setCollisionShape(new btBoxShape(btVector3(60, 5, 5)));
+	bottomGhost->setCollisionFlags(bottomGhost->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	theWorld->addCollisionObject(bottomGhost, 2, 1);
 }
 
 void PhysicsUtils::inputListen(GLFWwindow* window)
@@ -215,32 +227,56 @@ void PhysicsUtils::inputListen(GLFWwindow* window)
 
 void PhysicsUtils::collisionListen()
 {
-	auto dispatcher = theWorld->getCollisionWorld()->getDispatcher();
-	int nCollisions = dispatcher->getNumManifolds();
-	for (int i = 0; i < nCollisions; i++)
+	if (Pinball::lives > 0)
 	{
-		auto manifold = dispatcher->getManifoldByIndexInternal(i);
-		if (manifold->getNumContacts())
+		auto dispatcher = theWorld->getCollisionWorld()->getDispatcher();
+		int nCollisions = dispatcher->getNumManifolds();
+		for (int i = 0; i < nCollisions; i++)
 		{
-			auto bodyA = manifold->getBody0();
-			auto bodyB = manifold->getBody1();
-			auto objA = (cGameObject*)bodyA->getUserPointer();
-			auto objB = (cGameObject*)bodyB->getUserPointer();
-
-			if (objA != lastHitObj && objB != lastHitObj)
+			auto manifold = dispatcher->getManifoldByIndexInternal(i);
+			if (manifold->getNumContacts())
 			{
-				lastHitObj = objB;
-				if ((Pinball::pointGivers.count(objA) ||
-					Pinball::pointGivers.count(objB)))
+				auto bodyA = manifold->getBody0();
+				auto bodyB = manifold->getBody1();
+				auto objA = (cGameObject*)bodyA->getUserPointer();
+				auto objB = (cGameObject*)bodyB->getUserPointer();
+
+				if (objA && objB && objA != lastHitObj && objB != lastHitObj)
 				{
-					Pinball::points += 5;
+					lastHitObj = objB;
+					if ((Pinball::pointGivers.count(objA) ||
+						Pinball::pointGivers.count(objB)))
+					{
+						Pinball::points += 5;
+					}
+					// If we hit the diamond, we get a super duper life
+					if (objB->friendlyName == "diamond")
+					{
+						Pinball::lives++;
+					}
 				}
-				// If we hit the diamond, we get a super duper life
-				if (objB->friendlyName == "diamond")
+			}
+		}
+
+		int nOverlapping = bottomGhost->getNumOverlappingObjects();
+
+		for (int i = 0; i < nOverlapping; i++)
+		{
+			auto trigger = bottomGhost->getOverlappingObject(i);
+			auto triggerObj = (cGameObject*)trigger->getUserPointer();
+			if (triggerObj->friendlyName == "sphere")
+			{
+				Pinball::lives--;
+				if (Pinball::lives > 0)
 				{
-					Pinball::lives++;
+					auto theJson = JsonState::getTheJsonState();
+					int sphereIndex = theJson->findObject(triggerObj);
+					auto sphereOGPos = theJson->JSONObjects[sphereIndex]["positionXYZ"];
+					triggerObj->rigidBody->getWorldTransform().setOrigin(
+						{ sphereOGPos[0], sphereOGPos[1], sphereOGPos[2] }
+					);
 				}
-			}			
+			}
 		}
 	}
 }
