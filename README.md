@@ -24,6 +24,10 @@ Physics Pinball
         // the mesh shape will use the mesh data (maybe)
         // The rigid body starting position and rotation
         // will be the same as the game object
+
+        // how much energy the body will lose (or earn)
+        // with each bounce
+        "restitution": 0.8
     },
     ...
     // if colliding with this object gives the player points
@@ -33,9 +37,41 @@ Physics Pinball
 
 ## TODO
 
-- Spring Launcher (Maybe scale one axis independent)
-- Ghost object to lose a life
-- Game over state
+- * Spring Launcher (Maybe scale one axis independent)
+- * Ghost object to lose a life
+- * Game over state
 - * Diamond to win a life
 - * Don't gain points for the same object
 - * Sphere 6 DoF
+
+### Documentation y demas cositas
+
+- README
+  - Controles de usuario
+  - Descripcion de como y en donde cumplimos los requerimientos
+  - Instrucciones de compilado y ejecucion
+- Funciones
+  - JSONLoader::LoadRigidBody
+  - PhysicsUtil (la clase y sus propiedades)
+    - newPhysicsWorld
+    - init
+    - inputListen
+    - collisionListen
+    - launcherUpdate
+  - PhysicsDebug (la clase, el hecho que implementa de btIDebugDraw)
+    - drawLine
+    - y las demas ponerle "no se implementaron" o "se implementaron con funcionalidad vacia"
+- Borrar apuntadores
+  - theWorld. Lo cual incluye a todas las cosas que le metimos:
+    - mCollisions
+    - mCollisionDispatcher
+    - mOverlappingPairs
+    - mConstraints
+    - btGhostPairCallback
+    - cada constraint dentro del world
+  - ghost object (bottomGhost). Incluyendo:
+    - Su collisionShape 
+  - rigidBody al destruir un objeto. Incluyendo:
+    - collisionShape
+    - motionState
+  - destruir todos los objetos

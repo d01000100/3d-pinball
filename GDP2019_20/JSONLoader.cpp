@@ -155,7 +155,9 @@ btRigidBody* JSONLoader::LoadRigidBody(const json& physicsDef)
 		bodyDef.m_restitution = 1.0f; // how much energy it losses when it collides
 	}
 
-	return new btRigidBody(bodyDef);
+	auto rigidBody = new btRigidBody(bodyDef);
+	rigidBody->setActivationState(DISABLE_DEACTIVATION);
+	return rigidBody;
 }
 
 bool JSONLoader::JSONLoadMeshes(std::map<std::string, cMesh*>* g_map_Mesh, cModelLoader* pTheModelLoader)

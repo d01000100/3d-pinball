@@ -13,6 +13,11 @@ btDiscreteDynamicsWorld *PhysicsUtils::theWorld = nullptr;
 
 btPairCachingGhostObject* PhysicsUtils::bottomGhost = nullptr;
 
+float PhysicsUtils::springHoldTime = 0.f,
+	PhysicsUtils::springHoldMax = 5.f;
+
+std::string PhysicsUtils::launcherState = "waiting";
+
 void PhysicsUtils::newPhysicsWorld()
 {
 	auto mCollisions = new btDefaultCollisionConfiguration();
@@ -88,8 +93,8 @@ void PhysicsUtils::init()
 	        frame.setRotation( btQuaternion( btVector3(0,0,1),-SIMD_PI/2) );
 			btSliderConstraint* slider = new btSliderConstraint(
 				*(launcherObj->rigidBody),frame,false);
-			slider->setLowerLinLimit(-15.f);
-			slider->setUpperLinLimit(20.f);
+			slider->setLowerLinLimit(-30.f);
+			slider->setUpperLinLimit(0.f);
 			slider->setLowerAngLimit(0);
 			slider->setUpperAngLimit(0);
 			theWorld->addConstraint(slider);
@@ -205,24 +210,7 @@ void PhysicsUtils::inputListen(GLFWwindow* window)
 		}
 	}
 
-	if (launcherObj)
-	{
-		if (launcherObj->rigidBody)
-		{
-			auto m_key_status = glfwGetKey(window, GLFW_KEY_M);
-			auto n_key_status = glfwGetKey(window, GLFW_KEY_N);
-			auto body = launcherObj->rigidBody;
-			body->activate(true);
-			if (m_key_status == GLFW_PRESS)
-			{
-				body->setLinearVelocity(btVector3(0,300,0));
-			}
-			if (n_key_status == GLFW_PRESS)
-			{
-				body->setLinearVelocity(btVector3(10,0,0));
-			}
-		}
-	}
+	
 }
 
 void PhysicsUtils::collisionListen()
@@ -277,6 +265,60 @@ void PhysicsUtils::collisionListen()
 					);
 				}
 			}
+		}
+	}
+}
+
+void PhysicsUtils::launcherUpdate(GLFWwindow* window, float deltaTime)
+{
+	if (!launcherObj) return;
+	if (!launcherObj->rigidBody) return;
+
+	auto theJson = JsonState::getTheJsonState();
+	int launcherIndex = theJson->findObject(launcherObj);
+	auto jLauncher = theJson->JSONObjects[launcherIndex];
+
+	auto body = launcherObj->rigidBody;
+	if (launcherState == "waiting")
+	{
+		body->setMassProps(0, { 0,0,0 });
+
+		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+		{
+			launcherState = "charging";
+		}
+	}
+
+	if (launcherState == "charging")
+	{
+		body->setLinearVelocity(btVector3(0, -5, 0));
+		float mass = 1.0f;
+		if (jLauncher["Physics"].find("mass") != jLauncher["Physics"].end())
+			mass = jLauncher["Physics"]["mass"];
+		btVector3 localInertia;
+		body->getCollisionShape()->calculateLocalInertia(mass, localInertia);
+		body->setMassProps(mass, localInertia);
+		
+		if (springHoldTime < springHoldMax)
+		{
+			springHoldTime += deltaTime;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_M) != GLFW_PRESS)
+		{
+			launcherState = "launching";
+		}
+	}
+
+	if (launcherState == "launching")
+	{
+		auto launcherOGPos = jLauncher["positionXYZ"];
+		body->setLinearVelocity(btVector3(0, 1, 0) * springHoldTime * 80.f);
+
+		if (launcherOGPos[1].get<float>() - body->getWorldTransform().getOrigin().getY() < 1.f)
+		{
+			launcherState = "waiting";
+			springHoldTime = 0;
 		}
 	}
 }

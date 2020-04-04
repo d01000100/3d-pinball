@@ -53,7 +53,7 @@ glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 sexyLightSpotDirection = glm::vec3(0.0f, -1.0f, 0.0f);
 
 bool everythingWireFrame = false;
-bool debugger = true;
+bool debugger = false;
 std::string console;
 GLuint shaderProgID;
 cVAOManager* pTheVAOManager = new cVAOManager();
@@ -331,6 +331,7 @@ int main(void)
 		PhysicsUtils::theWorld->stepSimulation(deltaTime, 10);
 		PhysicsUtils::inputListen(window);
 		PhysicsUtils::collisionListen();
+		PhysicsUtils::launcherUpdate(window, deltaTime);
 		
 		switch (cursorType)
 		{

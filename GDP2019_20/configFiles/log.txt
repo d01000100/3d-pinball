@@ -56,7 +56,7 @@ debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 friendlyName: boxy
 meshName: box
 meshURL: assets/models/cube1_xyx_n_uv.ply
-positionXYZ: vec3(88.000000, 0.000000, -8.000000)
+positionXYZ: vec3(88.000000, 15.000000, -8.000000)
 rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
@@ -222,7 +222,7 @@ friendlyName: trapecio_left
 meshName: trapecio
 meshURL: assets/models/trapecio.fbx
 positionXYZ: vec3(-53.000000, 95.000000, 0.000000)
-rotationXYZ: vec3(90.000000, 89.965736, 0.000000)
+rotationXYZ: vec3(90.000000, 89.960434, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
@@ -232,7 +232,7 @@ debugColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 friendlyName: diamond
 meshName: diamond
 meshURL: assets/models/diamond.ply
-positionXYZ: vec3(-49.000000, 134.000000, 0.000000)
+positionXYZ: vec3(-55.000000, 134.000000, 0.000000)
 rotationXYZ: vec3(0.000000, -0.000000, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
@@ -244,7 +244,7 @@ friendlyName: trapecio_right
 meshName: trapecio
 meshURL: assets/models/trapecio.fbx
 positionXYZ: vec3(53.000000, 93.000000, 0.000000)
-rotationXYZ: vec3(90.000000, -89.965736, 0.000000)
+rotationXYZ: vec3(90.000000, -89.960434, 0.000000)
 objectColourRGBA: vec4(0.000000, 0.000000, 0.000000, 1.000000)
 diffuseColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
 specularColour: vec4(1.000000, 1.000000, 1.000000, 1.000000)
