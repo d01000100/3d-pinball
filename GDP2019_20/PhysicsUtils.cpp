@@ -18,18 +18,25 @@ float PhysicsUtils::springHoldTime = 0.f,
 
 std::string PhysicsUtils::launcherState = "waiting";
 
+btDefaultCollisionConfiguration* PhysicsUtils::mCollisions = nullptr;
+btCollisionDispatcher* PhysicsUtils::mCollisionDispatcher = nullptr;
+btDbvtBroadphase* PhysicsUtils::mOverlappingPairs = nullptr;
+btGhostPairCallback* PhysicsUtils::ghostCallback = nullptr;
+btSequentialImpulseConstraintSolver* PhysicsUtils::mConstraints = nullptr;
+
 void PhysicsUtils::newPhysicsWorld()
 {
-	auto mCollisions = new btDefaultCollisionConfiguration();
+	mCollisions = new btDefaultCollisionConfiguration();
 	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-	auto mCollisionDispatcher = new btCollisionDispatcher(mCollisions);
+	mCollisionDispatcher = new btCollisionDispatcher(mCollisions);
 	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-	auto mOverlappingPairs = new btDbvtBroadphase();
-	mOverlappingPairs->getOverlappingPairCache()->setInternalGhostPairCallback(
-		new btGhostPairCallback() 
-	);
+	mOverlappingPairs = new btDbvtBroadphase();
+	ghostCallback = new btGhostPairCallback();
+	mOverlappingPairs->
+		getOverlappingPairCache()->
+			setInternalGhostPairCallback(ghostCallback);
 	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-	auto mConstraints = new btSequentialImpulseConstraintSolver;
+	mConstraints = new btSequentialImpulseConstraintSolver();
 	theWorld = new btDiscreteDynamicsWorld(
 		mCollisionDispatcher,
 		mOverlappingPairs,
@@ -321,4 +328,27 @@ void PhysicsUtils::launcherUpdate(GLFWwindow* window, float deltaTime)
 			springHoldTime = 0;
 		}
 	}
+}
+
+void PhysicsUtils::cleanUp()
+{
+	int nConstraints = theWorld->getNumConstraints();
+	for (int i = 0 ; i < nConstraints; i++)
+	{
+		delete theWorld->getConstraint(i);
+	}
+	delete theWorld;
+	theWorld = nullptr;
+	
+	delete mConstraints;
+	mConstraints = nullptr;
+	delete mOverlappingPairs;
+	mOverlappingPairs = nullptr;
+	delete mCollisionDispatcher;
+	mCollisionDispatcher = nullptr;
+	delete mCollisions;
+	mCollisions = nullptr;
+
+	delete ghostCallback;
+	ghostCallback = nullptr;
 }

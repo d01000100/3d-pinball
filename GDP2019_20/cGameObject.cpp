@@ -1,4 +1,5 @@
 #include "cGameObject.h"
+#include "btBulletCollisionCommon.h"
 
 cGameObject::cGameObject()
 {
@@ -70,9 +71,40 @@ cGameObject::cGameObject(cGameObject* newGO)
 
 cGameObject::~cGameObject()
 {
+	std::cout << "Deleting game object " << friendlyName << std::endl;
 	if (rigidBody)
 	{
+		auto shapeType = rigidBody->getCollisionShape()->getShapeType();
+
+		// Checks for the type of the collision shape to cast it and delete it
+		if (shapeType == SPHERE_SHAPE_PROXYTYPE)
+		{
+			auto sphere = (btSphereShape*)rigidBody->getCollisionShape();
+			delete sphere;
+		}
+
+		if (shapeType == BOX_SHAPE_PROXYTYPE)
+		{
+			auto box_shape = (btBoxShape*)rigidBody->getCollisionShape();
+			delete box_shape;
+		}
+
+		if (shapeType == CYLINDER_SHAPE_PROXYTYPE)
+		{
+			auto cylinder_shape_z = (btCylinderShapeZ*)rigidBody->getCollisionShape();
+			delete cylinder_shape_z;
+		}
+
+		if (shapeType == CONVEX_HULL_SHAPE_PROXYTYPE)
+		{
+			auto hull_shape = (btConvexHullShape*)rigidBody->getCollisionShape();
+			delete hull_shape;
+		}
+
+		delete rigidBody->getMotionState();
+		
 		delete rigidBody;
+		rigidBody = nullptr;
 	}
 }
 

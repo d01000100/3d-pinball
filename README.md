@@ -61,17 +61,17 @@ Physics Pinball
   - PhysicsDebug (la clase, el hecho que implementa de btIDebugDraw)
     - drawLine
     - y las demas ponerle "no se implementaron" o "se implementaron con funcionalidad vacia"
-- Borrar apuntadores
-  - theWorld. Lo cual incluye a todas las cosas que le metimos:
-    - mCollisions
-    - mCollisionDispatcher
-    - mOverlappingPairs
-    - mConstraints
-    - btGhostPairCallback
-    - cada constraint dentro del world
-  - ghost object (bottomGhost). Incluyendo:
-    - Su collisionShape 
-  - rigidBody al destruir un objeto. Incluyendo:
-    - collisionShape
-    - motionState
-  - destruir todos los objetos
+- * Borrar apuntadores
+  - *theWorld. Lo cual incluye a todas las cosas que le metimos:
+    - *mCollisions
+    - *mCollisionDispatcher
+    - *mOverlappingPairs
+    - *mConstraints
+    - *btGhostPairCallback
+    - *cada constraint dentro del world
+  - *ghost object (bottomGhost). Incluyendo:
+    - *Su collisionShape 
+  - *rigidBody al destruir un objeto. Incluyendo:
+    - *collisionShape
+    - *motionState
+  - *destruir todos los objetos

@@ -255,7 +255,13 @@ int main(void)
 
 	// Delete everything
 	delete pTheModelLoader;
-	// delete pTheVAOManager;
+	delete pTheVAOManager;
+	PhysicsUtils::cleanUp();
+	for (const auto& str_obj_pair : ::g_map_GameObjects)
+	{
+		delete str_obj_pair.second;
+	}
+	::g_map_GameObjects.clear();
 
 	exit(EXIT_SUCCESS);
 }

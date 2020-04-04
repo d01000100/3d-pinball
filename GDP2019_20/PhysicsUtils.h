@@ -36,5 +36,17 @@ struct PhysicsUtils
 	static void collisionListen();
 	/* for "charging" the launcher, more charge = more velocity */
 	static void launcherUpdate(GLFWwindow* window, float deltaTime);
+	/*
+	 * Deleting all the pointers used for the physics world.
+	 */
+	static void cleanUp();
+private:
+	/*
+	 * Pointers to objects needed to create the physics world.
+	 */
+	static btDefaultCollisionConfiguration* mCollisions;
+	static btCollisionDispatcher* mCollisionDispatcher;
+	static btDbvtBroadphase* mOverlappingPairs;
+	static btGhostPairCallback* ghostCallback;
+	static btSequentialImpulseConstraintSolver* mConstraints;
 };
-
