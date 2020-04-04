@@ -142,7 +142,7 @@ void PhysicsUtils::init()
 	theWorld->addCollisionObject(bottomGhost, 2, 1);
 }
 
-void PhysicsUtils::inputListen(GLFWwindow* window)
+void PhysicsUtils::paddleInputListen(GLFWwindow* window)
 {
 	float paddleVel = 12.0f;
 	if (leftPaddleObj)

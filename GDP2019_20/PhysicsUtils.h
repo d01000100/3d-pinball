@@ -29,8 +29,8 @@ struct PhysicsUtils
 	/* Sets pointers to important gameobjects,
 	 * Adds constraints to the objects previously declared */
 	static void init();
-	/* Key bindings for gameplay */
-	static void inputListen(GLFWwindow* window);
+	/* Key bindings for the paddles */
+	static void paddleInputListen(GLFWwindow* window);
 	/* Function to differentiate between the objects
 	 * with which the ball collides */
 	static void collisionListen();
