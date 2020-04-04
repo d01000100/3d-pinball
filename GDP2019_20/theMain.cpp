@@ -214,7 +214,7 @@ int main(void)
 		theSceneManager->update();
 		// theSceneManager->updateStencil(window);
 		PhysicsUtils::theWorld->stepSimulation(deltaTime, 10);
-		PhysicsUtils::inputListen(window);
+		PhysicsUtils::paddleInputListen(window);
 		PhysicsUtils::collisionListen();
 		PhysicsUtils::launcherUpdate(window, deltaTime);
 		

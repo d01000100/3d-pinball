@@ -11,6 +11,8 @@ By releasing the key, the launcher will launch itself and the ball. The force of
 
 By pressing the `left` or `right` arrows, the left or right paddles will turn up respectively.
 
+By pressing `Ctrl + E` you can activate / deactivate the debug bullet renderer.
+
 ## Project overview
 
 We used Bullet for simulating movement, forces and collision detection and responses.
