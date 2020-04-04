@@ -12,6 +12,7 @@ std::string JSONLoader::gameobjects_json = "./configFiles/gameObjects.json";
 std::string JSONLoader::bkp_light_json = "./configFiles/bkplights.json";
 std::string JSONLoader::bkp_gameobjects_json = "./configFiles/bkpgameObjects.json";
 
+/* validates if an item exists inside a json object */
 bool jsonContains(const json& jObj, const std::string& key)
 {
 	return jObj.find(key) != jObj.end();

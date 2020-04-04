@@ -526,7 +526,7 @@
     "rotationXYZ": [90.0, 89.96043395996094, 0.0],
     "scale": 6.0,
     "specularColour": [1.0, 1.0, 1.0, 1.0],
-    "texture": ["Green.png", "", "", ""],
+    "texture": ["Red.png", "", "", ""],
     "textureRatio": [1.0, 0.0, 0.0, 0.0],
     "velocity": [0.0, 0.0, 0.0]
   },
@@ -570,7 +570,7 @@
     "rotationXYZ": [90.0, -89.96043395996094, 0.0],
     "scale": 6.0,
     "specularColour": [1.0, 1.0, 1.0, 1.0],
-    "texture": ["Green.png", "", "", ""],
+    "texture": ["Red.png", "", "", ""],
     "textureRatio": [1.0, 0.0, 0.0, 0.0],
     "velocity": [0.0, 0.0, 0.0]
   },
@@ -613,7 +613,7 @@
     "rotationXYZ": [0.0, -0.0, 90.0],
     "scale": 8.5,
     "specularColour": [1.0, 1.0, 1.0, 1.0],
-    "texture": ["Green.png", "", "", ""],
+    "texture": ["Blue.png", "", "", ""],
     "textureRatio": [1.0, 0.0, 0.0, 0.0],
     "velocity": [0.0, 0.0, 0.0]
   }

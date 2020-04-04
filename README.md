@@ -52,12 +52,12 @@ Physics Pinball
   - Instrucciones de compilado y ejecucion
 - Funciones
   - JSONLoader::LoadRigidBody
-  - PhysicsUtil (la clase y sus propiedades)
-    - newPhysicsWorld
-    - init
-    - inputListen
-    - collisionListen
-    - launcherUpdate
+  - *PhysicsUtil (la clase y sus propiedades)
+    - *newPhysicsWorld
+    - *init
+    - *inputListen
+    - *collisionListen
+    - *launcherUpdate
   - PhysicsDebug (la clase, el hecho que implementa de btIDebugDraw)
     - drawLine
     - y las demas ponerle "no se implementaron" o "se implementaron con funcionalidad vacia"

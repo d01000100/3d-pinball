@@ -129,9 +129,7 @@ int main(void)
 	void ProcessAsyncMouse(GLFWwindow * window);
 	void ProcessAsyncKeys(GLFWwindow * window);
 
-	//	OpenGL and GLFW are good to go, so load the model
-	// cModelLoader* pTheModelLoader = new cModelLoader();
-
+	//	OpenGL and GLFW are good to go
 	cShaderManager* pTheShaderManager = new cShaderManager();
 	cShaderManager::cShader vertexShad;
 	vertexShad.fileName = "assets/shaders/vertexShader01.glsl";
@@ -145,35 +143,10 @@ int main(void)
 	}
 	shaderProgID = pTheShaderManager->getIDFromFriendlyName("SimpleShader");
 
-	// Create a VAO Manager...
-	// cVAOManager* pTheVAOManager = new cVAOManager();
-
 	::pTextureManager = new cBasicTextureManager();
 	
 	// SkyBoxTexture
 	setSkyBoxTexture();
-
-	// PathFinding Stuff 
-	/*
-	BMPLoader bmpLoader;
-	bmpLoader.createColorVector();
-	theGraph = new cGraph(bmpLoader.bmp);
-
-	cNode* root = theGraph->mGraph[theGraph->start.first][theGraph->start.second];
-	cNode* resource = theGraph->Dijkstra(root);
-	cGraph::nodeVec resourcePath;
-	if(resource) resourcePath = theGraph->getParents(resource);
-
-	theGraph->ResetGraph();
-	root = theGraph->mGraph[theGraph->resource.first][theGraph->resource.second];
-	cNode* goal = theGraph->mGraph[theGraph->finish.first][theGraph->finish.second];
-	cNode* finish = theGraph->AStar(root,goal);
-	cGraph::nodeVec finishPath;
-	if(finish) finishPath = theGraph->getParents(finish);
-
-	sPathFinder* thePathFinder = sPathFinder::getThePathFinder();
-	thePathFinder->init(resourcePath,finishPath,theGraph);
-	*/
 	
 	//JSON Loader for objects
 	PhysicsUtils::newPhysicsWorld();
@@ -197,18 +170,6 @@ int main(void)
 	JSONLoader::JSONLoadLights(&::g_map_pLights,shaderProgID);
 	selectedLight = ::g_map_pLights.begin();
 
-	/* Animation Set*/
-	//if(g_map_GameObjects.find("character") != g_map_GameObjects.end())
-	//{
-	//	::theAnimatedPlayer->addPlayableObject(g_map_GameObjects.at("character"));
-	//	::theAnimatedPlayer->selectedPlayable = ::theAnimatedPlayer->playAnimChars.begin();
-	//}
-	//if(g_map_GameObjects.find("character2") != g_map_GameObjects.end())
-	//{
-	//	::theAnimatedPlayer->addPlayableObject(g_map_GameObjects.at("character2"));
-	//	::theAnimatedPlayer->selectedPlayable = ::theAnimatedPlayer->playAnimChars.begin();
-	//}
-
 	::g_pFlyCamera = new cFlyCamera();
 	::g_pFlyCamera->eye = ::g_map_GameObjects["cameraPosition0"]->positionXYZ;
 	::g_pFlyCamera->cameraLookAt(::g_map_GameObjects["cameraTarget0"]->positionXYZ);
@@ -222,9 +183,6 @@ int main(void)
 
 	createSkyBoxObject();
 
-	//thePathFinder->setTheGameObject(::g_map_GameObjects.at("sphereRed"));
-	//thePathFinder->setTheResource(::g_map_GameObjects.at("sphereWhite"));
-
 	pDebugRenderer->initialize();
 
 	ImGUI_utils::init(window);
@@ -234,8 +192,6 @@ int main(void)
 	
 	while (!glfwWindowShouldClose(window))
 	{
-		//JSONLoader::loadMeshToGPU(pTheVAOManager, &::g_map_GameObjects, shaderProgID);
-		
 		// Get the initial time
 		double currentTime = glfwGetTime();
 		// Frame time... (how many seconds since last frame)
@@ -249,82 +205,11 @@ int main(void)
 
 		ProcessAsyncKeys(window);
 		ProcessAsyncMouse(window);
-
 		glUseProgram(shaderProgID);
-		
-		//float ratio;
-		//int width, height;
-		//glm::mat4 p, v;
-		//
-		//glfwGetFramebufferSize(window, &width, &height);
-		//ratio = width / (float)height;
-		//
-		//// Projection matrix
-		//p = glm::perspective(0.6f,		// FOV
-		//	ratio,			// Aspect ratio
-		//	0.1f,			// Near clipping plane
-		//	15000.0f);		// Far clipping plane
-		//
-		//// View matrix
-		//v = glm::mat4(1.0f);
-		//
-		//// v = glm::lookAt(cameraEye,
-		//// 	cameraTarget,
-		//// 	upVector);
-		//
-		//v = glm::lookAt( ::g_pFlyCamera->eye, 
-		//				 ::g_pFlyCamera->getAtInWorldSpace(), 
-		//				 ::g_pFlyCamera->getUpVector() );
-		//
-		//glViewport(0, 0, width, height);
-		//
-		//// Clear both the colour buffer (what we see) and the depth (or z) buffer.
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//
-		//////----------------------------
-		//////		AQUI IBA LIGHTS
-		////// ---------------------------
-		//for (auto pLight : ::g_map_pLights)
-		//{
-		//	pLight.second->setUniforms();
-		//}
-		//
-		//// Also set the position of my "eye" (the camera)
-		////uniform vec4 eyeLocation;
-		//GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
-		//
-		//glUniform4f(eyeLocation_UL,
-		//	::g_pFlyCamera->eye.x,
-		//	::g_pFlyCamera->eye.y,
-		//	::g_pFlyCamera->eye.z, 1.0f);
 		
 		std::stringstream ssTitle;
 		tools::setWindowTitle(&ssTitle);
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
-		
-		//GLint matView_UL = glGetUniformLocation(shaderProgID, "matView");
-		//GLint matProj_UL = glGetUniformLocation(shaderProgID, "matProj");
-		//
-		//glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
-		//glUniformMatrix4fv(matProj_UL, 1, GL_FALSE, glm::value_ptr(p));
-		//
-		//drawSkyBox();
-		//
-		//// ************************** order transparent objects **************************
-		//tools::makeTransparentObjectsMap();
-		//std::vector<cGameObject*> theWorldVector = tools::getWorldMapAsVector();
-		//
-		//// **************************************************
-		//// Loop to draw everything in the scene
-		//for (int index = 0; index < theWorldVector.size(); index++)
-		//{
-		//	glm::mat4 matModel = glm::mat4(1.0f);
-		//	if (theWorldVector[index]->isVisible)
-		//	{
-		//		tools::DrawObject(matModel, theWorldVector[index], shaderProgID, pTheVAOManager);
-		//	}
-		//}//for (int index...
-
 		
 		theSceneManager->update();
 		// theSceneManager->updateStencil(window);
@@ -343,8 +228,6 @@ int main(void)
 		//	Update the objects through physics
 		averageDeltaTime = avgDeltaTimeThingy.getAverage();
 		IntegrationStep_AAB(::g_map_GameObjects,float(averageDeltaTime));
-		//pPhysic->TestForCollisions(::g_map_GameObjects);
-		//thePathFinder->update(float(averageDeltaTime));
 
 		if (::debugger)
 		{
